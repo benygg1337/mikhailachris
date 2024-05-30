@@ -1,6 +1,6 @@
 <?php
 
-
+// Файлы phpmailer
 require __DIR__ . '/vendor/autoload.php';
 require __DIR__ . '/php/PHPMailer.php';
 require __DIR__ . '/php/SMTP.php';
@@ -11,7 +11,7 @@ use Google\Service\Sheets;
 use Google\Service\Sheets\ValueRange;
 
 // Определяем путь и имя файла для логов
-$logFile = __DIR__ . '/logs/log.txt';
+$logFile = __DIR__ . '/log.txt';
 
 // Функция для записи логов
 function writeLog($message)
@@ -24,15 +24,15 @@ function writeLog($message)
 function writeResponseLog($response)
 {
     global $logFile;
-    $logMessage = "[" . date("Y-m-d H:i:s") . " form_by_form] Response: " . $response . PHP_EOL;
+    $logMessage = "[" . date("Y-m-d H:i:s") . " form_by_survey] Response: " . $response . PHP_EOL;
     file_put_contents($logFile, $logMessage, FILE_APPEND | LOCK_EX);
 }
 
 
-// // Функция для проверки reCAPTCHA
+// // Актуальная функция для проверки reCAPTCHA
 // function checkRecaptcha($response)
 // {
-//     define('SECRET_KEY', '6LeU7TYoAAAAAFNUC3UkadeuZ2SJOy94NGxbbcpV');
+//     define('SECRET_KEY', '6Lc9Q-kpAAAAAM6nyNN4pVOd5Ax6B_THK35gtZdy');
 //     $recaptcha_url = 'https://www.google.com/recaptcha/api/siteverify';
 //     $recaptcha_data = [
 //         'secret' => SECRET_KEY,
@@ -55,7 +55,7 @@ function writeResponseLog($response)
 
 // }
 
-// #Проверка reCAPTCHA
+// //Проверка reCAPTCHA
 // if (isset($_POST['g-recaptcha-response'])) {
 //     $recaptcha_response = $_POST['g-recaptcha-response'];
 //     $recaptcha_json = checkRecaptcha($recaptcha_response);
@@ -85,7 +85,54 @@ function writeResponseLog($response)
 //     exit();
 // }
 
-putenv('GOOGLE_APPLICATION_CREDENTIALS=' . __DIR__ . '/secret_new.json');
+// Будут ли на свадьбе
+$visit = $_POST['form-visit'];
+if ($visit === 'agree') {
+    $visit = "Сможет присутствовать";
+} elseif ($visit === 'notagree') {
+    $visit = "Не сможет присутствовать";
+}
+
+
+
+// Предпочтения по еде 
+$eatInput = $_POST['form-food'] ?? null; // Используем оператор нулевого слияния для предотвращения ошибки
+if ($eatInput === 'fish') {
+    $eat = "Рыба";
+} elseif ($eatInput === 'meat') {
+    $eat = "Мясо";
+} else {
+    $eat = null; // Данные отсутствуют
+}
+
+// Предпочтения по алкоголю
+$drinkInput = $_POST['form-drinks'] ?? null; // Используем оператор нулевого слияния для предотвращения ошибки
+if ($drinkInput === 'strong') {
+    $drink = "Крепкие напитки";
+} elseif ($drinkInput === 'no-strong') {
+    $drink = "Не крепкие напитки";
+} else {
+    $drink = null; // Данные отсутствуют
+}
+
+// Проверка, что ошибки нет и переменные
+if (!error_get_last()) {
+
+    $phone = isset($_POST['form-phone']) && !empty($_POST['form-phone']) ? $_POST['form-phone'] : null;
+    $guest = 'Не указано';
+
+    if (isset($_POST['form-name']) && !empty($_POST['form-name'])) {
+        $guest = $_POST['form-name'];
+    } elseif (isset($_POST['form-name-no']) && !empty($_POST['form-name-no'])) {
+        $guest = $_POST['form-name-no'];
+    }
+
+
+    
+
+
+//Отправка в таблицу
+putenv('GOOGLE_APPLICATION_CREDENTIALS=' . __DIR__ . '/cred_new.json');
 
 $client = new Client();
 $client->useApplicationDefaultCredentials();
@@ -100,19 +147,22 @@ try {
     $date_time = date("Y-m-d H:i:s");
 
     // Данные для добавления
-    $values = new ValueRange([
-        'values' => [
-            [$_POST['form-visit'], $_POST['form-name'], $date_time]
-        ]
+    $values = [
+        [$date_time]
+    ];
+    
+    $range = 'A2'; 
+    $body = new Google_Service_Sheets_ValueRange([
+        'values' => $values
     ]);
-
-    // Параметры добавления данных
+    
     $params = [
         'valueInputOption' => 'RAW'
     ];
+    var_dump($values);
 
     $range = 'A2'; // Допустим, вы хотите начать добавление с A1
-    $service->spreadsheets_values->append($spreadsheetId, $range, $values, $params);
+    $service->spreadsheets_values->append($spreadsheetId, $range, $body, $params);
 } catch (Exception $e) {
     // Обработка ошибки
     $data['result'] = "error";
@@ -121,30 +171,20 @@ try {
     writeResponseLog(json_encode($data));
 } 
 
-
-
-# проверка, что ошибки нет и переменные
-if (!error_get_last()) {
-
-    $husband = $_POST['fio_husband'];
-    $number_w = $_POST['tel_wife'];
-    $email = $_POST['mail'];
-    $date = $_POST['merry_date'];
-    $promo = $_POST['promocode'];
-
     // Формирование самого письма
     $headers = "Content-Type: text/html; charset=UTF-8";
-    $title = "Запрос на создание свадебного сайта";
-    $body = "
-    <h1>Новая заявка от $husband</h1>
-    <b>Имя жениха:</b> $husband<br>
-    <b>Телефон жениха:</b> $number_w <br>
-    <b>Почта:</b> $email<br>
-    <b>Дата свадьбы:</b> $date<br>
-    ";
+    $title = "Результат опроса";
+    $body = "<h1>Запрос заполнил: $guest</h1>
+    <b>Присутствие:</b> $visit<br>";
 
-    if (!empty($promo)) {
-        $body .= "<b>Промокод:</b> $promo <br>";
+    if ($phone) {
+        $body .= "<b>Номер телефона:</b> $phone<br>";
+    }
+    if ($eat) {
+        $body .= "<b>Предпочтение по еде:</b> $eat<br>";
+    }
+    if ($drink) {
+        $body .= "<b>Предпочтения по напиткам:</b> $drink<br>";
     }
 
 
@@ -165,12 +205,73 @@ if (!error_get_last()) {
     $mail->Password = '4638743aA'; // Пароль на почте
     $mail->SMTPSecure = 'ssl';
     $mail->Port = 465;
-    $mail->setFrom('noreply@marryme-invites.ru', 'Свадебные сайты'); // Адрес самой почты и имя отправителя
-
+    $mail->setFrom('noreply@marryme-invites.ru', 'Свадебный сайт'); // Адрес самой почты и имя отправителя
 
     // Получатель письма
     $mail->addAddress('loko419@yandex.ru');
 
+
+
+
+//Определяем переменные файлов
+    $file_arr = [
+        'name' => [],
+        'full_path' => [],
+        'type' => [],
+        'tmp_name' => [],
+        'error' => [],
+        'size' => []
+    ];
+
+    foreach ($_FILES as $name_file => $file_content){
+        if(substr( $name_file, 0, 5 ) === "files"){
+            $file_arr['name'][] = $file_content['name'];
+            $file_arr['full_path'][] = $file_content['full_path'];
+            $file_arr['type'][] = $file_content['type'];
+            $file_arr['tmp_name'][] = $file_content['tmp_name'];
+            $file_arr['error'][] = $file_content['error'];
+            $file_arr['size'][] = $file_content['size'];
+        }
+    }
+$file = $file_arr;
+
+// Обработка массива файлов
+for ($i = 0; $i < count($file['tmp_name']); $i++) {
+    if ($file['error'][$i] === 0) {
+        $mail->addAttachment($file['tmp_name'][$i], $file['name'][$i]);
+    }
+}
+
+    //     // Сохраняем файл на сервер
+//     if ($_SERVER["REQUEST_METHOD"] === "POST") {
+//         // Проверка наличия файлов
+//         if (!empty($file['name'][0])) {
+//             $husband = htmlspecialchars($_POST['fio_husband']);
+//             $wife = htmlspecialchars($_POST['fio_wife']);
+
+    //             // Путь к папке загрузки с именем мужа и жены
+//             $target_dir = __DIR__ . '/загрузки/' . $husband . '_' . $wife . '/';
+
+    //             // Создание директории, если она не существует
+//             if (!file_exists($target_dir)) {
+//                 mkdir($target_dir, 0755, true);
+//             }
+
+    //         }
+//     }
+
+    // // Перемещение загруженных файлов
+// foreach ($_FILES['formImage']['tmp_name'] as $key => $tmp_name) {
+//     $file_name = basename($_FILES['formImage']['name'][$key]);
+//     $target_file = $target_dir . $file_name;
+
+    //     if (move_uploaded_file($tmp_name, $target_file)) {
+//         // Файл успешно перемещен в папку "ЗАГРУЗКИ"
+//         echo "Файл $file_name успешно загружен в папку 'ЗАГРУЗКИ'.";
+//     } else {
+//         echo "Ошибка при перемещении файла $file_name.";
+//     }
+// }
 
     // Отправка сообщения
     $mail->isHTML(true);
@@ -189,6 +290,7 @@ if (!error_get_last()) {
         $data['desc'] = "Причина ошибки: {$mail->ErrorInfo}";
         writeLog("Ошибка отправки письма: {$mail->ErrorInfo}");
         writeResponseLog(json_encode($data));
+        
     }
 
 } else {

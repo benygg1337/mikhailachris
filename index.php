@@ -22,7 +22,7 @@ Template Name: Home
                     <!-- Опрос -->
                     <div class="in9-survey">
                         <div class="in9-survey__block">
-                            <div class="in9-survey__subtitle in9-title">Дорогие наши родные и друзья!</div>
+                            <div class="in9-survey__subtitle in9-title">Дорогие наши родные и друзья! TEST</div>
                             <div class="in9-survey__text">
                                 Один день в этом году будет для нас особенным, и мы хотим провести его в кругу близких и
                                 друзей. Этот день станет красивым началом долгой и счастливой жизни. С большим
