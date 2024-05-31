@@ -5,8 +5,6 @@ Template Name: Home
 
 <?php get_header(); ?>
 
-
-
 <body>
     <div class="in9-wrapper">
         <main class="in9-page">
