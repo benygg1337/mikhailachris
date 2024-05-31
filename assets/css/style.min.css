@@ -971,6 +971,7 @@ ol.counter li:before {
 @media (max-width: 479.98px) {
   .in9-survey__box .in9-survey__btn:last-child {
     margin: 13px 0px 0px 0px;
+    padding: 0 20px; 
   }
 }
 @media (max-width: 767.98px) {
