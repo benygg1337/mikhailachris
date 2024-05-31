@@ -5,6 +5,8 @@ Template Name: Home
 
 <?php get_header(); ?>
 
+
+
 <body>
     <div class="in9-wrapper">
         <main class="in9-page">
@@ -289,6 +291,7 @@ Template Name: Home
                                     class="in9-form-input-no _req">
 
                                 <button type="submit" class="in9-form__btn in9-btn">Отправить</button>
+                            </div>
 
                         </form>
                     </div>
@@ -301,4 +304,3 @@ Template Name: Home
 <?php
 get_footer(); ?>
 
-</html>
