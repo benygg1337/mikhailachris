@@ -207,7 +207,8 @@ try {
     $mail->setFrom('noreply@marryme-invites.ru', 'Свадебный сайт'); // Адрес самой почты и имя отправителя
 
     // Получатель письма
-    $mail->addAddress('loko419@yandex.ru');
+    $mail->addAddress('loko419@yandex.ru'); 
+    $mail->addAddress('Kristina.sergeevna.00@mail.ru'); 
 
 
 

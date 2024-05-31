@@ -2444,3 +2444,7 @@ input[type=radio]._active + label:before {
     width: 240px;
   }
 }
+
+.grecaptcha-badge {
+  visibility: hidden;
+}
