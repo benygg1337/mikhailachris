@@ -1,9 +1,14 @@
 <?php
 
 // Файлы phpmailer
+require __DIR__ . '/vendor/autoload.php';
 require __DIR__ . '/php/PHPMailer.php';
 require __DIR__ . '/php/SMTP.php';
 require __DIR__ . '/php/Exception.php';
+
+use Google\Client;
+use Google\Service\Sheets;
+use Google\Service\Sheets\ValueRange;
 
 // Определяем путь и имя файла для логов
 $logFile = __DIR__ . '/log.txt';
