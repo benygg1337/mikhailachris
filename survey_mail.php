@@ -159,7 +159,6 @@ try {
     $params = [
         'valueInputOption' => 'RAW'
     ];
-    var_dump($values);
 
     $range = 'A2'; // Допустим, вы хотите начать добавление с A1
     $service->spreadsheets_values->append($spreadsheetId, $range, $body, $params);
