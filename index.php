@@ -44,13 +44,11 @@ Template Name: Home
                     <!-- История любви -->
                     <div class="in9-wishes">
                         <div class="in9-wishes__title in9-title">Наша история любви</div>
-                        <div class="in9-wishes__text">Наше первое свидание было три года назад в Екатерининском саду,
-                            где
-                            осенью шел сильный дождь. Но этот дождь лишь добавил очарования нашей встрече. Мы провели
-                            этот
-                            вечер, погруженные в разговоры, смеясь и неотрывно глядя друг на друга. За прошедшие четыре
-                            года
-                            у нас было много волнующих моментов, и мы готовы и дальше счастливо идти по жизни вместе!
+                        <div class="in9-wishes__text">Наше первое свидание было полтора года назад, в начале 2023 года.
+                            Мы оказались в чудесном городе Тула и провели там два самых веселых и незабываемых дня. Ни
+                            на минуту не уставая от разговоров, смеха и радости, мы наслаждались каждым мгновением,
+                            проведенным вдвоем. За прошедшие полтора года у нас было много волнующих моментов и
+                            головокружительных путешествий! Теперь мы готовы и дальше идти по жизни вместе!
                         </div>
                         <div class="in9-wishes__row">
                             <div class="in9-wishes__column">
@@ -287,9 +285,9 @@ Template Name: Home
 
                             </div>
                             <div class="in9-form__box-no">
-                                <input type="text" name="form-name-no" placeholder="Ваше имя и фамилия" data-value="" 
+                                <input type="text" name="form-name-no" placeholder="Ваше имя и фамилия" data-value=""
                                     class="in9-form-input-no _req">
-                                    <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
+                                <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
                                 <button type="submit" class="in9-form__btn in9-btn">Отправить</button>
                             </div>
 
@@ -303,4 +301,3 @@ Template Name: Home
 </body>
 <?php
 get_footer(); ?>
-
