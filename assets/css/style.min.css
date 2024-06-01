@@ -7,45 +7,26 @@
   font-style: normal;
 }
 @font-face {
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-display: swap;
-  src: url('../fonts/Roboto-Light.woff2') format('woff2'),
-       url('../fonts/Roboto-Light.woff') format('woff'),
-       url('../fonts/Roboto-Light.ttf') format('truetype'),
-       url('../fonts/Roboto-Light.eot') format('embedded-opentype');
+  src: url("../fonts/Roboto-Light.woff2") format("woff2"), url("../fonts/Roboto-Light.woff") format("woff");
   font-weight: 300;
   font-style: normal;
 }
-
 @font-face {
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-display: swap;
-  src: url('../fonts/Roboto-Medium.woff2') format('woff2'),
-       url('../fonts/Roboto-Medium.woff') format('woff'),
-       url('../fonts/Roboto-Medium.ttf') format('truetype'),
-       url('../fonts/Roboto-Medium.eot') format('embedded-opentype');
+  src: url("../fonts/Roboto-Medium.woff2") format("woff2"), url("../fonts/Roboto-Medium.woff") format("woff");
   font-weight: 500;
   font-style: normal;
 }
-
 @font-face {
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-display: swap;
-  src: url('../fonts/Roboto-Regular.woff2') format('woff2'),
-       url('../fonts/Roboto-Regular.woff') format('woff'),
-       url('../fonts/Roboto-Regular.ttf') format('truetype'),
-       url('../fonts/Roboto-Regular.eot') format('embedded-opentype');
+  src: url("../fonts/Roboto-Regular.woff2") format("woff2"), url("../fonts/Roboto-Regular.woff") format("woff");
   font-weight: 400;
   font-style: normal;
 }
-
-body {
-  font-family: 'Roboto', sans-serif;
-  letter-spacing: normal;
-  word-spacing: normal;
-}
-
-
 * {
   padding: 0px;
   margin: 0px;
@@ -152,10 +133,10 @@ body._lock {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  font-family: "Lato";
+  font-family: "Roboto";
   font-weight: 400;
   animation: ani 1.5s forwards;
-  letter-spacing: 0px;
+  letter-spacing: normal;
   word-spacing: 0px;
 
 }
@@ -2106,7 +2087,7 @@ ol.counter li:before {
   line-height: 140%;
   color: #000;
   margin: 0px 0px 40px 0px;
-  font-family: "Lato";
+  font-family: "Roboto";
   padding: 0px 10px;
 }
 @media (max-width: 991.98px) {
@@ -2130,7 +2111,7 @@ ol.counter li:before {
   line-height: 140%;
   color: #000;
   margin: 0px 0px 15px 0px;
-  font-family: "Lato";
+  font-family: "Roboto";
   padding: 0px 10px;
 }
 @media (max-width: 991.98px) {
@@ -2211,7 +2192,7 @@ ol.counter li:before {
 .in9-form-input {
   border-radius: 20px !important;
   width: 420px;
-  font-family: "Lato";
+  font-family: "Roboto";
   display: block;
   padding: 0px 30px;
   font-weight: 300;
@@ -2273,7 +2254,7 @@ input[type=radio]._active + label:before {
 
 .in9-form-radio {
   width: 50%;
-  font-family: "Lato";
+  font-family: "Roboto";
   font-size: 22px;
   line-height: 110%;
   color: #000;
@@ -2328,7 +2309,7 @@ input[type=radio]._active + label:before {
 .in9-form-input-no {
   border-radius: 20px !important;
   width: 400px;
-  font-family: "Lato";
+  font-family: "Roboto";
   display: block;
   padding: 0px 30px;
   font-weight: 300;
