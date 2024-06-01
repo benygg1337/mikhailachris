@@ -136,6 +136,7 @@ body._lock {
   font-family: "Lato";
   font-weight: 400;
   animation: ani 1.5s forwards;
+  letter-spacing: normal;
 }
 .in9-wrapper:after {
   content: "";
