@@ -9,14 +9,14 @@
 @font-face {
   font-family: "helveticaneue";
   font-display: swap;
-  src: url("../fonts/helveticaneue-Light.woff2") format("woff2"), url("../fonts/helveticaneue-Light.woff2") format("woff");
+  src: url("../fonts/helveticaneue-light.woff2") format("woff2"), url("../fonts/helveticaneue-light.woff2") format("woff");
   font-weight: 300;
   font-style: normal;
 }
 @font-face {
   font-family: "helveticaneue";
   font-display: swap;
-  src: url("../fonts/helveticaneue-Medium.woff2") format("woff2"), url("../fonts/helveticaneue-Medium.woff2") format("woff");
+  src: url("../fonts/helveticaneue-medium.woff2") format("woff2"), url("../fonts/helveticaneue-medium.woff2") format("woff");
   font-weight: 500;
   font-style: normal;
 }
