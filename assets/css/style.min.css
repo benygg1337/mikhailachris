@@ -1603,7 +1603,7 @@ ol.counter li:before {
   }
 }
 .in9-questions__subtitle {
-  font-size: calc(17px + 8 * ((100vw - 320px) / 1600));
+  font-size: calc(19px + 8 * ((100vw - 320px) / 1600));
   line-height: 100%;
   max-width: 660px;
   color: #000;
@@ -2470,7 +2470,7 @@ input[type=radio]._active + label:before {
 }
 @media (max-width: 767.98px) {
   .in9-btn {
-    font-size: 14px;
+    font-size: 16px;
     line-height: 38px;
     height: 38px;
     width: 100%;
